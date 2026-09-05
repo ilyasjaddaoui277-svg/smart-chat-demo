@@ -3,24 +3,138 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Floating Chat PRO - Live Demo</title>
+  <title>Smart Floating Chat PRO – Astra Theme Demo</title>
+  <!-- Google Fonts: Poppins & Inter (Default Astra typography) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-    body { background: #f8fafc; color: #1e293b; line-height: 1.6; }
-    
-    header { background: #ffffff; padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
-    .logo { font-size: 20px; font-weight: 700; color: #059669; display: flex; align-items: center; gap: 8px; }
-    .hero { text-align: center; padding: 80px 20px 60px; max-width: 800px; margin: 0 auto; }
-    .hero h1 { font-size: 40px; margin-bottom: 16px; color: #0f172a; font-weight: 800; }
-    .hero p { font-size: 18px; color: #64748b; margin-bottom: 30px; }
-    .badge { display: inline-block; background: #d1fae5; color: #065f46; padding: 6px 16px; border-radius: 50px; font-weight: 600; font-size: 14px; margin-bottom: 20px; }
-    
-    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; max-width: 900px; margin: 20px auto 80px; padding: 0 20px; }
-    .card { background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; text-align: center; }
-    .card i { font-size: 32px; color: #10b981; margin-bottom: 15px; }
-    .card h3 { font-size: 18px; margin-bottom: 8px; }
-    .card p { font-size: 14px; color: #64748b; }
+    :root {
+      --ast-primary: #0274be;
+      --ast-text: #4a5568;
+      --ast-heading: #1e293b;
+      --ast-bg: #f8fafc;
+      --ast-border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background-color: var(--ast-bg); color: var(--ast-text); line-height: 1.7; }
+    h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; color: var(--ast-heading); }
+
+    /* WordPress Admin Bar Simulation */
+    .wp-admin-bar {
+      height: 32px;
+      background: #1d2327;
+      color: #c3c4c7;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      font-size: 13px;
+      position: sticky;
+      top: 0;
+      z-index: 10000;
+    }
+    .wp-admin-bar-left { display: flex; align-items: center; gap: 15px; }
+    .wp-admin-bar-left i { font-size: 14px; }
+    .wp-admin-bar a { color: #c3c4c7; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .wp-admin-bar a:hover { color: #72aee6; }
+    .wp-badge { background: #2271b1; color: #fff; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+
+    /* Astra Header Navigation */
+    .ast-header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--ast-border);
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ast-logo { font-size: 22px; font-weight: 700; color: #0f172a; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .ast-logo span { color: var(--ast-primary); }
+    .ast-nav { display: flex; gap: 25px; list-style: none; }
+    .ast-nav a { text-decoration: none; color: #334155; font-weight: 500; font-size: 15px; transition: color 0.2s; }
+    .ast-nav a:hover, .ast-nav a.active { color: var(--ast-primary); }
+
+    /* Astra Hero Section */
+    .ast-hero {
+      padding: 90px 20px 60px;
+      text-align: center;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+    .ast-pill {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    .ast-hero h1 { font-size: 42px; line-height: 1.25; margin-bottom: 20px; font-weight: 800; }
+    .ast-hero p { font-size: 18px; color: #64748b; margin-bottom: 30px; }
+    .ast-btn {
+      display: inline-block;
+      background: var(--ast-primary);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(2, 116, 190, 0.25);
+      transition: opacity 0.2s;
+    }
+    .ast-btn:hover { opacity: 0.9; }
+
+    /* Features Grid */
+    .ast-container { max-width: 1100px; margin: 40px auto 90px; padding: 0 20px; }
+    .ast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+    .ast-card {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      border: 1px solid var(--ast-border);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+    .ast-card-icon {
+      width: 50px;
+      height: 50px;
+      background: #eff6ff;
+      color: var(--ast-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+    }
+    .ast-card h3 { font-size: 19px; margin-bottom: 10px; }
+    .ast-card p { font-size: 14px; color: #64748b; }
+
+    /* --- Floating WhatsApp Widget Styling --- */
+    .sfc-tooltip {
+      position: fixed;
+      bottom: 40px;
+      right: 105px;
+      background: #ffffff;
+      color: #1e293b;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      z-index: 9997;
+      border: 1px solid #e2e8f0;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-6px);}
+      60% {transform: translateY(-3px);}
+    }
 
     .sfc-floating-btn {
       position: fixed;
@@ -33,14 +147,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      font-size: 30px;
+      color: #ffffff;
+      font-size: 32px;
       cursor: pointer;
       box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
       z-index: 9999;
       transition: transform 0.2s;
     }
-    .sfc-floating-btn:hover { transform: scale(1.05); }
+    .sfc-floating-btn:hover { transform: scale(1.08); }
 
     .sfc-pulse {
       position: absolute;
@@ -52,149 +166,172 @@
       pointer-events: none;
     }
     @keyframes sfc-wave {
-      0% { transform: scale(1); opacity: 0.8; }
-      100% { transform: scale(1.5); opacity: 0; }
+      0% { transform: scale(1); opacity: 0.85; }
+      100% { transform: scale(1.6); opacity: 0; }
     }
 
+    /* Popup Chatbox */
     .sfc-box {
       position: fixed;
       bottom: 105px;
       right: 30px;
-      width: 320px;
+      width: 330px;
       background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+      border-radius: 14px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.18);
       z-index: 9998;
       overflow: hidden;
       display: none;
       flex-direction: column;
-      animation: fadeIn 0.3s ease;
+      animation: popIn 0.25s ease forwards;
     }
-    @keyframes fadeIn {
+    @keyframes popIn {
       from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
     .sfc-box.active { display: flex; }
-    
+
     .sfc-box-header {
       background: #075E54;
-      color: #fff;
-      padding: 16px 20px;
+      color: #ffffff;
+      padding: 16px;
       display: flex;
       align-items: center;
       gap: 12px;
     }
     .sfc-avatar {
-      width: 46px;
-      height: 46px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: #25D366;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      font-size: 20px;
       color: #fff;
     }
-    .sfc-box-header h4 { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
-    .sfc-box-header span { font-size: 12px; opacity: 0.85; }
+    .sfc-box-header h4 { font-size: 15px; font-weight: 600; color: #ffffff; }
+    .sfc-box-header span { font-size: 12px; opacity: 0.85; display: block; }
 
     .sfc-box-body {
       padding: 20px;
-      background: #e5ddd5;
+      background: #efeae2;
       background-image: radial-gradient(#d1c7bc 1px, transparent 1px);
-      background-size: 12px 12px;
+      background-size: 10px 10px;
     }
     .sfc-msg-bubble {
       background: #ffffff;
-      padding: 12px 15px;
-      border-radius: 12px 12px 12px 2px;
-      font-size: 14px;
+      padding: 12px 14px;
+      border-radius: 10px 10px 10px 2px;
+      font-size: 13.5px;
       color: #111827;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-      margin-bottom: 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      margin-bottom: 16px;
+      line-height: 1.5;
     }
-
     .sfc-action-btn {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
       background: #25D366;
-      color: #fff;
+      color: #ffffff;
       text-decoration: none;
       font-weight: 600;
       padding: 12px;
       border-radius: 25px;
       font-size: 14px;
-      transition: background 0.2s;
+      box-shadow: 0 3px 10px rgba(37,211,102,0.3);
     }
     .sfc-action-btn:hover { background: #1ebc59; }
 
-    .sfc-tooltip {
-      position: fixed;
-      bottom: 45px;
-      right: 105px;
-      background: #fff;
-      color: #334155;
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      z-index: 9997;
+    @media (max-width: 600px) {
+      .wp-admin-bar { display: none; }
+      .ast-header { padding: 15px 5%; }
+      .ast-nav { display: none; }
+      .sfc-tooltip { display: none; }
+      .sfc-box { right: 15px; left: 15px; width: auto; bottom: 95px; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo"><i class="fa-solid fa-comments"></i> Smart Floating Chat PRO</div>
-    <span style="font-size:13px; color:#64748b;">Envato Demo Preview</span>
+  <!-- Simulated WordPress Admin Bar -->
+  <div class="wp-admin-bar">
+    <div class="wp-admin-bar-left">
+      <a href="#"><i class="fa-brands fa-wordpress"></i> <span>Smart Chat Demo</span></a>
+      <a href="#"><i class="fa-solid fa-arrows-rotate"></i> <span class="wp-badge">0</span></a>
+      <a href="#"><i class="fa-solid fa-comments"></i> <span class="wp-badge">1</span></a>
+      <a href="#"><i class="fa-solid fa-plus"></i> New</a>
+    </div>
+    <div>
+      <a href="#">Howdy, Admin <i class="fa-solid fa-user-circle"></i></a>
+    </div>
+  </div>
+
+  <!-- Astra Header -->
+  <header class="ast-header">
+    <a href="#" class="ast-logo">
+      <i class="fa-solid fa-bolt" style="color:var(--ast-primary)"></i> Astra<span>Site</span>
+    </a>
+    <ul class="ast-nav">
+      <li><a href="#" class="active">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
   </header>
 
-  <section class="hero">
-    <div class="badge">Live Product Demonstration</div>
-    <h1>Smart Floating Chat & WhatsApp PRO</h1>
-    <p>Test the interactive live demo below. Click the floating chat icon at the bottom right corner to interact with the widget.</p>
+  <!-- Astra Hero -->
+  <section class="ast-hero">
+    <div class="ast-pill">WordPress Live Demo Environment</div>
+    <h1>Build Faster, Connect Closer With Customers</h1>
+    <p>The ultimate high-converting floating WhatsApp chat plugin for WordPress & WooCommerce. Click the floating widget on the bottom right to see it in action.</p>
+    <a href="#demo" class="ast-btn">Explore Features</a>
   </section>
 
-  <section class="features">
-    <div class="card">
-      <i class="fa-brands fa-whatsapp"></i>
-      <h3>Instant WhatsApp</h3>
-      <p>Direct communication with customers in one click.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-user-tie"></i>
-      <h3>Agent Profile</h3>
-      <p>Customizable representative avatar and details.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-mobile-screen"></i>
-      <h3>Responsive</h3>
-      <p>Fluid user experience on mobile, tablet, and desktop.</p>
+  <!-- Astra Grid Section -->
+  <section class="ast-container" id="demo">
+    <div class="ast-grid">
+      <div class="ast-card">
+        <div class="ast-card-icon"><i class="fa-brands fa-whatsapp"></i></div>
+        <h3>One-Click WhatsApp</h3>
+        <p>Instant redirection to WhatsApp web or mobile app with pre-filled custom inquiry messages.</p>
+      </div>
+      <div class="ast-card">
+        <div class="ast-card-icon"><i class="fa-solid fa-user-check"></i></div>
+        <h3>Agent Profiles</h3>
+        <p>Display team member avatars, working hours, and availability statuses effortlessly.</p>
+      </div>
+      <div class="ast-card">
+        <div class="ast-card-icon"><i class="fa-solid fa-sliders"></i></div>
+        <h3>Fully Customizable</h3>
+        <p>Match your brand colors, custom greetings, and button positions natively in WordPress.</p>
+      </div>
     </div>
   </section>
 
+  <!-- Floating WhatsApp Widget -->
   <div class="sfc-tooltip">Need Help? Chat with us 👋</div>
   <div class="sfc-floating-btn" id="sfcBtn">
     <div class="sfc-pulse"></div>
     <i class="fa-brands fa-whatsapp"></i>
   </div>
 
+  <!-- Floating Chatbox -->
   <div class="sfc-box" id="sfcBox">
     <div class="sfc-box-header">
-      <div class="sfc-avatar"><i class="fa-solid fa-user"></i></div>
+      <div class="sfc-avatar"><i class="fa-solid fa-user-tie"></i></div>
       <div>
         <h4>Sarah Jenkins</h4>
-        <span>Support Representative (Online)</span>
+        <span>Support Team • Online</span>
       </div>
     </div>
     <div class="sfc-box-body">
       <div class="sfc-msg-bubble">
-        Hello there! 👋<br>How can I help you today? Click below to start chatting with us.
+        Hello! 👋 Welcome to our demo store. How can we help you today?
       </div>
-      <a href="https://wa.me/15551234567" target="_blank" class="sfc-action-btn">
+      <a href="https://wa.me/212600000000" target="_blank" class="sfc-action-btn">
         <i class="fa-brands fa-whatsapp"></i> Start WhatsApp Chat
       </a>
     </div>

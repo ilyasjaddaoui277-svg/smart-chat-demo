@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Floating Chat PRO - Live Demo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    body { background: #f8fafc; color: #1e293b; line-height: 1.6; }
+    
+    header { background: #ffffff; padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
+    .logo { font-size: 20px; font-weight: 700; color: #059669; display: flex; align-items: center; gap: 8px; }
+    .hero { text-align: center; padding: 80px 20px 60px; max-width: 800px; margin: 0 auto; }
+    .hero h1 { font-size: 40px; margin-bottom: 16px; color: #0f172a; font-weight: 800; }
+    .hero p { font-size: 18px; color: #64748b; margin-bottom: 30px; }
+    .badge { display: inline-block; background: #d1fae5; color: #065f46; padding: 6px 16px; border-radius: 50px; font-weight: 600; font-size: 14px; margin-bottom: 20px; }
+    
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; max-width: 900px; margin: 20px auto 80px; padding: 0 20px; }
+    .card { background: #fff; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; text-align: center; }
+    .card i { font-size: 32px; color: #10b981; margin-bottom: 15px; }
+    .card h3 { font-size: 18px; margin-bottom: 8px; }
+    .card p { font-size: 14px; color: #64748b; }
+
+    .sfc-floating-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 62px;
+      height: 62px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+      z-index: 9999;
+      transition: transform 0.2s;
+    }
+    .sfc-floating-btn:hover { transform: scale(1.05); }
+
+    .sfc-pulse {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid #25D366;
+      animation: sfc-wave 2s infinite ease-out;
+      pointer-events: none;
+    }
+    @keyframes sfc-wave {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    .sfc-box {
+      position: fixed;
+      bottom: 105px;
+      right: 30px;
+      width: 320px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+      z-index: 9998;
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .sfc-box.active { display: flex; }
+    
+    .sfc-box-header {
+      background: #075E54;
+      color: #fff;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .sfc-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #fff;
+    }
+    .sfc-box-header h4 { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+    .sfc-box-header span { font-size: 12px; opacity: 0.85; }
+
+    .sfc-box-body {
+      padding: 20px;
+      background: #e5ddd5;
+      background-image: radial-gradient(#d1c7bc 1px, transparent 1px);
+      background-size: 12px 12px;
+    }
+    .sfc-msg-bubble {
+      background: #ffffff;
+      padding: 12px 15px;
+      border-radius: 12px 12px 12px 2px;
+      font-size: 14px;
+      color: #111827;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      margin-bottom: 15px;
+    }
+
+    .sfc-action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #25D366;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 12px;
+      border-radius: 25px;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .sfc-action-btn:hover { background: #1ebc59; }
+
+    .sfc-tooltip {
+      position: fixed;
+      bottom: 45px;
+      right: 105px;
+      background: #fff;
+      color: #334155;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      z-index: 9997;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo"><i class="fa-solid fa-comments"></i> Smart Floating Chat PRO</div>
+    <span style="font-size:13px; color:#64748b;">Envato Demo Preview</span>
+  </header>
+
+  <section class="hero">
+    <div class="badge">Live Product Demonstration</div>
+    <h1>Smart Floating Chat & WhatsApp PRO</h1>
+    <p>Test the interactive live demo below. Click the floating chat icon at the bottom right corner to interact with the widget.</p>
+  </section>
+
+  <section class="features">
+    <div class="card">
+      <i class="fa-brands fa-whatsapp"></i>
+      <h3>Instant WhatsApp</h3>
+      <p>Direct communication with customers in one click.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-user-tie"></i>
+      <h3>Agent Profile</h3>
+      <p>Customizable representative avatar and details.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-mobile-screen"></i>
+      <h3>Responsive</h3>
+      <p>Fluid user experience on mobile, tablet, and desktop.</p>
+    </div>
+  </section>
+
+  <div class="sfc-tooltip">Need Help? Chat with us 👋</div>
+  <div class="sfc-floating-btn" id="sfcBtn">
+    <div class="sfc-pulse"></div>
+    <i class="fa-brands fa-whatsapp"></i>
+  </div>
+
+  <div class="sfc-box" id="sfcBox">
+    <div class="sfc-box-header">
+      <div class="sfc-avatar"><i class="fa-solid fa-user"></i></div>
+      <div>
+        <h4>Sarah Jenkins</h4>
+        <span>Support Representative (Online)</span>
+      </div>
+    </div>
+    <div class="sfc-box-body">
+      <div class="sfc-msg-bubble">
+        Hello there! 👋<br>How can I help you today? Click below to start chatting with us.
+      </div>
+      <a href="https://wa.me/15551234567" target="_blank" class="sfc-action-btn">
+        <i class="fa-brands fa-whatsapp"></i> Start WhatsApp Chat
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const btn = document.getElementById('sfcBtn');
+    const box = document.getElementById('sfcBox');
+    btn.addEventListener('click', () => {
+      box.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>
